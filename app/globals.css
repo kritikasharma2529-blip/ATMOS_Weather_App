@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter), sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  --font-inter: 'Inter', sans-serif;
+}
+
+/* Custom global styles */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* Tabular figures for aligned, stable alignment on changing numbers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Glassmorphism helpers */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-effect-dark {
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Hide scrollbars but maintain functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Beautiful custom scrollbar for dashboard scrolling elements */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Skeleton loader shimmer keyframes */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-loader {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.12) 37%,
+    rgba(255, 255, 255, 0.05) 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Time progress line indicator animations */
+.progress-pulse {
+  box-shadow: 0 0 12px 2px rgba(94, 200, 250, 0.6);
+}
+
+/* ─── Custom Cursor ─────────────────────────────────────────────────────────── */
+/* Hide the native cursor when our custom cursor is active (desktop only) */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* ─── Interactive Hover Glow (global utility) ───────────────────────────────── */
+/* Apply .interactive-glow to any card / tile / button for consistent hover FX */
+.interactive-glow {
+  transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  will-change: transform;
+}
+
+.interactive-glow:hover {
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.25),
+    0 8px 32px rgba(34, 211, 238, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+  border-color: rgba(34, 211, 238, 0.28) !important;
+  transform: scale(1.02);
+}
+
+.interactive-glow:active {
+  transform: scale(0.97);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.18),
+    0 4px 16px rgba(34, 211, 238, 0.08);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+/* Subtle variant — for small tiles and metric cards */
+.interactive-glow-sm {
+  transition: box-shadow 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+  will-change: transform;
+}
+
+.interactive-glow-sm:hover {
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.18),
+    0 4px 20px rgba(34, 211, 238, 0.1);
+  border-color: rgba(34, 211, 238, 0.2) !important;
+  transform: scale(1.03);
+}
+
+.interactive-glow-sm:active {
+  transform: scale(0.96);
+  transition: transform 0.08s ease;
+}
+
+/* ─── Button Press Feedback (global) ───────────────────────────────────────── */
+/* Targets Tailwind's active:scale-* classes; adds spring-back feel via ease */
+button, [role="button"] {
+  transition-property: transform, box-shadow, background-color, border-color, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+button:active, [role="button"]:active {
+  transition-duration: 80ms;
+}
+
+/* ─── Page transition root ─────────────────────────────────────────────────── */
+/* Ensure Framer Motion exit animations aren't clipped */
+main {
+  isolation: isolate;
+}
+
