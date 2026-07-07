@@ -91,7 +91,7 @@ export default function SearchPage() {
             <div className="flex flex-col items-center justify-center py-10 text-center text-white/40">
               <History className="w-8 h-8 mb-2 opacity-50" />
               <p className="text-sm">No recent searches yet.</p>
-              <p className="text-xs text-white/30 mt-1">Your search history will appear here for fast re-access.</p>
+              {/* fast re-access removed */}
             </div>
           )}
         </div>

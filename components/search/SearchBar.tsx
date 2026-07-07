@@ -87,7 +87,7 @@ export default function SearchBar({ onSelectCity, onSelectCoords }: SearchBarPro
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setIsFocused(true)}
             placeholder="Search for cities..."
-            className="w-full h-12 pl-12 pr-10 text-sm bg-white/10 text-white placeholder-white/40 border border-white/10 rounded-2xl outline-none backdrop-blur-md focus:border-white/20 focus:bg-white/15 transition-all duration-300 font-medium"
+            className="w-full h-12 pl-12 pr-10 text-sm bg-slate-900/75 text-white placeholder-white/50 border border-white/20 rounded-2xl outline-none backdrop-blur-xl focus:border-cyan-400/60 focus:bg-slate-900/90 focus:shadow-[0_0_0_2px_rgba(34,211,238,0.18),0_0_16px_rgba(34,211,238,0.12)] transition-all duration-300 font-medium shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
           />
           {query && (
             <button
@@ -106,7 +106,7 @@ export default function SearchBar({ onSelectCity, onSelectCoords }: SearchBarPro
         <button
           onClick={handleGeolocate}
           title="Use current location"
-          className="flex items-center justify-center w-12 h-12 bg-white/10 hover:bg-white/15 text-cyan-400 border border-white/10 hover:border-white/20 rounded-2xl transition-all duration-300 backdrop-blur-md group active:scale-95"
+          className="flex items-center justify-center w-12 h-12 bg-slate-900/75 hover:bg-slate-800/90 text-cyan-400 border border-white/20 hover:border-cyan-400/50 rounded-2xl transition-all duration-300 backdrop-blur-xl group active:scale-95 hover:shadow-[0_0_12px_rgba(34,211,238,0.2)]"
         >
           <MapPin className="w-5 h-5 group-hover:animate-bounce" />
         </button>

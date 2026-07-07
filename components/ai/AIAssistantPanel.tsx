@@ -122,22 +122,13 @@ export default function AIAssistantPanel({ isOpen, onClose, city, weatherContext
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop Blur Overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.4 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 pointer-events-auto"
-          />
-
           {/* Chat Side Drawer Container */}
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-            className="fixed top-12 right-12 z-50 w-full md:w-[450px] max-h-[60vh] bg-slate-950/90 border-l border-white/10 backdrop-blur-3xl shadow-2xl flex flex-col rounded-xl overflow-hidden"
+            className="fixed top-24 right-24 z-50 w-full md:w-[450px] max-h-[60vh] bg-slate-950/90 border-l border-white/10 backdrop-blur-3xl shadow-2xl flex flex-col rounded-xl overflow-hidden"
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">

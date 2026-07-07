@@ -89,42 +89,7 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          {/* Theme selection */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-2 border-t border-white/5 pt-4">
-            <div>
-              <span className="text-sm font-bold text-white block">Visual Theme</span>
-              <span className="text-xs text-white/50">Select preferred layout coloring mode</span>
-            </div>
-            <div className="flex bg-white/5 border border-white/10 p-1 rounded-xl">
-              <button
-                onClick={() => updateSettings({ theme: 'auto' })}
-                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all ${
-                  settings.theme === 'auto' ? 'bg-cyan-500 text-white shadow-md' : 'text-white/60 hover:text-white'
-                }`}
-              >
-                <Monitor className="w-3.5 h-3.5" />
-                Auto
-              </button>
-              <button
-                onClick={() => updateSettings({ theme: 'light' })}
-                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all ${
-                  settings.theme === 'light' ? 'bg-cyan-500 text-white shadow-md' : 'text-white/60 hover:text-white'
-                }`}
-              >
-                <Sun className="w-3.5 h-3.5" />
-                Light
-              </button>
-              <button
-                onClick={() => updateSettings({ theme: 'dark' })}
-                className={`px-3 py-2 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all ${
-                  settings.theme === 'dark' ? 'bg-cyan-500 text-white shadow-md' : 'text-white/60 hover:text-white'
-                }`}
-              >
-                <Moon className="w-3.5 h-3.5" />
-                Dark
-              </button>
-            </div>
-          </div>
+
         </GlassCard>
 
 

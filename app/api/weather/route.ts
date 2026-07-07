@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
   const customKey = request.headers.get('x-weather-api-key') || undefined;
 
   try {
-    const data = await fetchWeather(query, customKey);
+    const data = await fetchWeather(query, customKey, city || undefined);
     // Add cache headers for 10 minutes (600 seconds) cache, stale-while-revalidate for 5 mins
     const response = NextResponse.json(data.weather);
     response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=300');

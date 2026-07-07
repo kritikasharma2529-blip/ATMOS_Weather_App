@@ -54,6 +54,8 @@ function normalizeWeatherData(data: any): { weather: WeatherData; forecast: Fore
 
   const epaIndex = current.air_quality?.['us-epa-index'] || 1;
 
+  console.log(`[WEATHER API LOG] Raw API response temperature for ${location.name}, ${location.country}: temp_c=${current.temp_c}, temp_f=${current.temp_f}, feelslike_c=${current.feelslike_c}, feelslike_f=${current.feelslike_f}`);
+
   const currentNormal: CurrentWeather = {
     temp: current.temp_c,
     feels_like: current.feelslike_c,
@@ -269,16 +271,22 @@ function getMockWeatherData(query: string): { weather: WeatherData; forecast: Fo
 /**
  * Fetch weather data for a city name or latitude/longitude coordinates
  */
-export async function fetchWeather(query: string, customApiKey?: string): Promise<{ weather: WeatherData; forecast: ForecastData }> {
+export async function fetchWeather(query: string, customApiKey?: string, cityNameOverride?: string): Promise<{ weather: WeatherData; forecast: ForecastData }> {
   const apiKey = customApiKey || WEATHER_API_KEY;
   if (!apiKey) {
     // Fall back to Mock Provider
-    return getMockWeatherData(query);
+    const result = getMockWeatherData(query);
+    if (cityNameOverride && result.weather) {
+      result.weather.city = cityNameOverride;
+    }
+    return result;
   }
 
   try {
-    const url = `${BASE_URL}/forecast.json?key=${apiKey}&q=${encodeURIComponent(query)}&days=7&aqi=yes&alerts=no`;
-    const res = await fetch(url);
+    // Generate a cache-buster based on the current 10-minute window
+    const timeKey = Math.floor(Date.now() / (10 * 60 * 1000));
+    const url = `${BASE_URL}/forecast.json?key=${apiKey}&q=${encodeURIComponent(query)}&days=7&aqi=yes&alerts=no&_cb=${timeKey}`;
+    const res = await fetch(url, { next: { revalidate: 600 } });
     if (!res.ok) {
       if (res.status === 400 || res.status === 404) {
         throw new Error('CITY_NOT_FOUND');
@@ -286,6 +294,31 @@ export async function fetchWeather(query: string, customApiKey?: string): Promis
       throw new Error('PROVIDER_ERROR');
     }
     const data = await res.json();
+
+    // Dynamically fetch accurate real-world current temperature from Open-Meteo using location coordinates
+    try {
+      const lat = data.location?.lat;
+      const lon = data.location?.lon;
+      if (lat !== undefined && lon !== undefined) {
+        const openMeteoUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature`;
+        const openMeteoRes = await fetch(openMeteoUrl, { next: { revalidate: 600 } });
+        if (openMeteoRes.ok) {
+          const openMeteoData = await openMeteoRes.json();
+          if (openMeteoData.current) {
+            console.log(`[WEATHER API CALIBRATION] Overriding WeatherAPI temp_c (${data.current.temp_c}°C) with Open-Meteo temp_c (${openMeteoData.current.temperature_2m}°C)`);
+            data.current.temp_c = openMeteoData.current.temperature_2m;
+            data.current.feelslike_c = openMeteoData.current.apparent_temperature;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('[WEATHER API CALIBRATION] Failed to fetch calibration data from Open-Meteo, using WeatherAPI defaults:', e);
+    }
+
+    if (cityNameOverride && data.location) {
+      data.location.name = cityNameOverride;
+    }
+
     return normalizeWeatherData(data);
   } catch (error: any) {
     if (error.message === 'CITY_NOT_FOUND' || error.message === 'PROVIDER_ERROR') {

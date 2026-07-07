@@ -5,9 +5,11 @@ import { Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { WeatherData } from '@/types/weather';
 import { useAtmosStore } from '@/lib/store/useAtmosStore';
-import { formatTemp } from '@/lib/utils';
+import { formatTemp, convertTemp } from '@/lib/utils';
 import WeatherIcon from './WeatherIcon';
 import GlassCard from '../ui/GlassCard';
+import HeroWeatherEffects from '../backgrounds/HeroWeatherEffects';
+import { mapConditionToKey } from '@/lib/constants';
 
 interface WeatherHeroProps {
   weather: WeatherData;
@@ -37,8 +39,17 @@ export default function WeatherHero({ weather, tempMin, tempMax }: WeatherHeroPr
     }
   };
 
+  const conditionKey = mapConditionToKey(
+    current.condition,
+    new Date().getHours() < 6 || new Date().getHours() > 18
+  );
+
   return (
-    <GlassCard className="flex flex-col p-8 md:p-10 justify-between min-h-[300px] w-full" delay={0.1}>
+    <GlassCard className="relative flex flex-col p-8 md:p-10 justify-between min-h-[300px] w-full overflow-hidden" delay={0.1}>
+      {/* Weather effects scoped to this card only — scrolls away with hero */}
+      <HeroWeatherEffects condition={conditionKey} />
+      {/* Hero content — sits above the weather effects canvas */}
+      <div className="relative z-10 flex flex-col justify-between h-full">
       {/* Header Info */}
       <div className="flex items-start justify-between">
         <div>
@@ -81,7 +92,7 @@ export default function WeatherHero({ weather, tempMin, tempMax }: WeatherHeroPr
             key={`${current.temp}-${units}`}
             className="text-7xl md:text-8xl font-light text-white tracking-tighter tabular-nums leading-none"
           >
-            {Math.round(current.temp)}
+            {convertTemp(current.temp, units)}
           </motion.span>
           <span className="text-3xl md:text-4xl font-light text-cyan-400 ml-1 leading-none">
             °{units === 'metric' ? 'C' : 'F'}
@@ -111,6 +122,7 @@ export default function WeatherHero({ weather, tempMin, tempMax }: WeatherHeroPr
           </div>
         </div>
       </div>
+      </div>{/* end relative z-10 wrapper */}
     </GlassCard>
   );
 }
