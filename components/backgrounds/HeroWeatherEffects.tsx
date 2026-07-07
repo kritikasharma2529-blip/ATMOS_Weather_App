@@ -21,6 +21,7 @@ export default function HeroWeatherEffects({ condition }: HeroWeatherEffectsProp
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
+
     if (!ctx) return;
 
     const parent = canvas.parentElement;
@@ -29,11 +30,11 @@ export default function HeroWeatherEffects({ condition }: HeroWeatherEffectsProp
     let animationFrameId: number;
 
     // Size canvas to match the hero container (not the viewport)
-    let width  = (canvas.width  = parent.offsetWidth);
+    let width = (canvas.width = parent.offsetWidth);
     let height = (canvas.height = parent.offsetHeight);
 
     const ro = new ResizeObserver(() => {
-      width  = canvas.width  = parent.offsetWidth;
+      width = canvas.width = parent.offsetWidth;
       height = canvas.height = parent.offsetHeight;
     });
     ro.observe(parent);
@@ -103,10 +104,10 @@ export default function HeroWeatherEffects({ condition }: HeroWeatherEffectsProp
     // ── Moving clouds with proper silhouette shape (all conditions) ─────────────
     interface CloudDef { x: number; y: number; w: number; h: number; speed: number; opacity: number; }
     const movingClouds: CloudDef[] = [
-      { x: width * 0.00,  y: height * 0.18,  w: 260, h: 80,  speed: 0.20, opacity: 0.52 },
-      { x: width * 0.40,  y: height * 0.12,  w: 200, h: 62,  speed: 0.12, opacity: 0.44 },
-      { x: width * 0.68,  y: height * 0.22,  w: 160, h: 50,  speed: 0.26, opacity: 0.40 },
-      { x: -220,           y: height * 0.15,  w: 230, h: 70,  speed: 0.18, opacity: 0.46 },
+      { x: width * 0.00, y: height * 0.18, w: 260, h: 80, speed: 0.20, opacity: 0.52 },
+      { x: width * 0.40, y: height * 0.12, w: 200, h: 62, speed: 0.12, opacity: 0.44 },
+      { x: width * 0.68, y: height * 0.22, w: 160, h: 50, speed: 0.26, opacity: 0.40 },
+      { x: -220, y: height * 0.15, w: 230, h: 70, speed: 0.18, opacity: 0.46 },
     ];
 
     /**
@@ -116,11 +117,11 @@ export default function HeroWeatherEffects({ condition }: HeroWeatherEffectsProp
      */
     function drawCloudShape(
       cx: number, cy: number,
-      w: number,  h: number,
+      w: number, h: number,
       opacity: number
     ) {
-      ctx.save();
-      ctx.beginPath();
+      ctx!.save();
+      ctx!.beginPath();
 
       // Cloud arc layout (all positions relative to cx/cy):
       //   bottom-left → left bump → tall centre bump → right-centre bump → right small bump → bottom-right → flat base → close
@@ -128,29 +129,29 @@ export default function HeroWeatherEffects({ condition }: HeroWeatherEffectsProp
       const by = cy;   // base y (bottom of cloud)
 
       // Left small bump
-      ctx.arc(bx + w * 0.15, by - h * 0.28, h * 0.28, Math.PI * 0.5,  Math.PI * 1.55, false);
+      ctx!.arc(bx + w * 0.15, by - h * 0.28, h * 0.28, Math.PI * 0.5, Math.PI * 1.55, false);
       // Centre-left tall bump (highest point)
-      ctx.arc(bx + w * 0.38, by - h * 0.62, h * 0.36, Math.PI * 1.0,  Math.PI * 1.92, false);
+      ctx!.arc(bx + w * 0.38, by - h * 0.62, h * 0.36, Math.PI * 1.0, Math.PI * 1.92, false);
       // Centre-right bump
-      ctx.arc(bx + w * 0.62, by - h * 0.48, h * 0.28, Math.PI * 0.85, 0,              false);
+      ctx!.arc(bx + w * 0.62, by - h * 0.48, h * 0.28, Math.PI * 0.85, 0, false);
       // Right small bump
-      ctx.arc(bx + w * 0.83, by - h * 0.22, h * 0.20, Math.PI * 0.6,  0,              false);
+      ctx!.arc(bx + w * 0.83, by - h * 0.22, h * 0.20, Math.PI * 0.6, 0, false);
 
       // Flat base: bottom-right → bottom-left
-      ctx.lineTo(bx + w, by);
-      ctx.lineTo(bx,     by);
-      ctx.closePath();
+      ctx!.lineTo(bx + w, by);
+      ctx!.lineTo(bx, by);
+      ctx!.closePath();
 
       // Vertical gradient: bright white at top, soft transparent at base
-      const grad = ctx.createLinearGradient(bx, by - h, bx, by);
-      grad.addColorStop(0,    `rgba(255,255,255,${(opacity * 1.00).toFixed(3)})`);
+      const grad = ctx!.createLinearGradient(bx, by - h, bx, by);
+      grad.addColorStop(0, `rgba(255,255,255,${(opacity * 1.00).toFixed(3)})`);
       grad.addColorStop(0.35, `rgba(248,252,255,${(opacity * 0.88).toFixed(3)})`);
       grad.addColorStop(0.70, `rgba(235,245,255,${(opacity * 0.60).toFixed(3)})`);
-      grad.addColorStop(1,    `rgba(210,230,255,${(opacity * 0.20).toFixed(3)})`);
+      grad.addColorStop(1, `rgba(210,230,255,${(opacity * 0.20).toFixed(3)})`);
 
-      ctx.fillStyle = grad;
-      ctx.fill();
-      ctx.restore();
+      ctx!.fillStyle = grad;
+      ctx!.fill();
+      ctx!.restore();
     }
 
     // ── Thunderstorm flash ────────────────────────────────────────────────────
