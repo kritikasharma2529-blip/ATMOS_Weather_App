@@ -128,7 +128,7 @@ http://localhost:3000
 
 ### 🏠 Home Page
 
-![Home](public/screenshots/home.png)
+![Home](public/screenshots/search1.png)
 
 ### 🔍 Search Page
 
