@@ -1,36 +1,172 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌦️ ATMOS – AI-Powered Weather Dashboard
 
-## Getting Started
+A premium AI-powered weather dashboard built using **Next.js**, **TypeScript**, **Gemini AI**, and **WeatherAPI.com**. ATMOS provides real-time weather updates, AI-powered weather insights, dynamic weather animations, and a modern responsive user interface.
 
-First, run the development server:
+---
+
+## 🌐 Live Demo
+
+🔗 https://atmos-weather-app-lyart.vercel.app
+
+---
+
+## 📖 Overview
+
+ATMOS is a modern weather application that combines real-time weather data with AI-generated insights to provide users with a smarter weather experience. The application features animated weather effects, city-based weather search, AI recommendations, and a clean, responsive interface.
+
+---
+
+## ✨ Features
+
+- 🌍 Real-time weather information
+- 🤖 AI-powered weather assistant using Gemini AI
+- 🔍 Search weather by city
+- 📍 Current location support
+- 🌦️ Dynamic weather animations
+- ☁️ Moving cloud effects
+- 🌡️ Temperature, humidity, pressure & wind details
+- 🌅 Sunrise & Sunset information
+- ⭐ Favorite locations
+- ⚙️ User settings page
+- 📱 Fully responsive design
+- ⚡ Fast performance with Next.js
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- Next.js
+- React
+- TypeScript
+- CSS
+
+### APIs
+- WeatherAPI.com
+- Google Gemini API
+
+### Deployment
+- Vercel
+
+### Development Tools
+- VS Code
+- Git
+- GitHub
+
+---
+
+## 📂 Project Structure
+
+```
+ATMOS_Weather_App
+│
+├── app/
+│   ├── api/
+│   ├── favorites/
+│   ├── search/
+│   └── settings/
+│
+├── components/
+│   ├── ai/
+│   ├── backgrounds/
+│   ├── layout/
+│   ├── search/
+│   ├── ui/
+│   └── weather/
+│
+├── lib/
+├── public/
+├── types/
+├── README.md
+└── package.json
+```
+
+---
+
+## 🚀 Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/kritikasharma2529-blip/ATMOS_Weather_App.git
+```
+
+Move into the project
+
+```bash
+cd ATMOS_Weather_App
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Create a `.env.local` file in the root directory.
+
+```env
+WEATHER_API_KEY=your_weatherapi_key
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📸 Screenshots
 
-To learn more about Next.js, take a look at the following resources:
+> Screenshots will be added soon.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Future Enhancements
 
-## Deploy on Vercel
+- 📅 7-Day Weather Forecast
+- 🌫️ Air Quality Index (AQI)
+- 🗺️ Interactive Weather Maps
+- 🔔 Severe Weather Alerts
+- 🎤 Voice-enabled AI Assistant
+- 🌍 Multi-language Support
+- 📊 Weather Analytics Dashboard
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👩‍💻 Developer
+
+**Kritika Sharma**
+
+B.Tech Computer Science Engineering (Big Data Analytics)
+
+- 🌐 GitHub: https://github.com/kritikasharma2529-blip
+- 💼 LinkedIn: *(Add your LinkedIn profile link here)*
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feature requests are welcome.
+
+Feel free to fork the repository and submit a pull request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, please consider giving it a ⭐ on GitHub.
