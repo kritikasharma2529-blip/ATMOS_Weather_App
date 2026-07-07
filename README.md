@@ -126,7 +126,25 @@ http://localhost:3000
 
 ## 📸 Screenshots
 
-> Screenshots will be added soon.
+### 🏠 Home Page
+
+![Home](public/screenshots/home.png)
+
+### 🔍 Search Page
+
+![Search](public/screenshots/search.png)
+
+### 🤖 AI Assistant
+
+![AI Assistant](public/screenshots/ai-assistant.png)
+
+### 🌤️ Weather Details
+
+![Weather Details](public/screenshots/weather-details.png)
+
+### ⚙️ Settings
+
+![Settings](public/screenshots/settings.png)
 
 ---
 
