@@ -126,10 +126,6 @@ http://localhost:3000
 
 ## 📸 Screenshots
 
-### 🏠 Home Page
-
-![Home](public/screenshots/search1.png)
-
 ### 🔍 Search Page
 
 ![Search](public/screenshots/search.png)
